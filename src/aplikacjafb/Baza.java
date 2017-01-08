@@ -23,16 +23,16 @@ import java.util.List;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Grzesiek
  */
 public class Baza {
+
     private static final String DRIVER = "org.sqlite.JDBC";
-    private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Grzesiek\\Desktop\\projekt inz 2\\SQLiteStudio\\platforms\\Dane";
-    private static Connection connection=null;
-    private static Statement statement=null;
+    private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Homik\\Downloads\\Lokale";
+    private static Connection connection = null;
+    private static Statement statement = null;
 
     public static void polaczZbazaDanych() {
         try {
@@ -43,29 +43,30 @@ public class Baza {
         }
         try {
             connection = DriverManager.getConnection(DB_URL);
-            statement = connection.createStatement(); 
+            statement = connection.createStatement();
             System.out.println("polaczono");
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Problem z otwarciem połączenie");
-        }      
-       
+        }
+
     }
+
     public static void rozlaczZbazaDanych() {
-        
+
         try {
             connection.close();
-            statement.close(); 
+            statement.close();
             System.out.println("rozlaczono");
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Problem z rozłaczeniem połączenie");
-        }      
-       
+        }
+
     }
-    
-public void insertDane(String tab, String name, int s) {
+
+    public void insertDane(String tab, String name, int s) {
         try {
             PreparedStatement prepStmt = connection.prepareStatement(
-                    "insert into "+ tab +" values (NULL, ?, ?);");
+                    "insert into " + tab + " values (NULL, ?, ?);");
             //prepStmt.setString(1, id);
             prepStmt.setString(1, name);
             prepStmt.setInt(2, s);
@@ -74,21 +75,20 @@ public void insertDane(String tab, String name, int s) {
             System.err.println("Blad przy wstawianiu tabeli");
             e.printStackTrace();
         }
-        
-    } 
 
-public void createTable(String nazwa)  {
-        String createCzytelnicy = "CREATE TABLE IF NOT EXISTS "+ nazwa +" (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(255), suma int)";
+    }
+
+    public void createTable(String nazwa) {
+        String createCzytelnicy = "CREATE TABLE IF NOT EXISTS " + nazwa + " (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(255), suma int)";
         try {
             statement.execute(createCzytelnicy);
-          
-            
+
         } catch (SQLException e) {
             System.err.println("Blad przy tworzeniu tabeli");
             e.printStackTrace();
-            
+
         }
-        
+
     }
 
 }

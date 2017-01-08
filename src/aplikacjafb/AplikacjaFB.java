@@ -35,11 +35,11 @@ public class AplikacjaFB extends Application {
     }
 
     public static void Likes(String accessToken) {
-         Baza baza = new Baza(); 
-         baza.polaczZbazaDanych(); 
-         baza.createTable(domena);
+        Baza baza = new Baza();
+        baza.polaczZbazaDanych();
+        baza.createTable(domena);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
-        Connection<Post> result = fbClient.fetchConnection(domena+"/feed", Post.class);
+        Connection<Post> result = fbClient.fetchConnection(domena + "/feed", Post.class);
         int licznik = 0;
         for (List<Post> page : result) {
             for (Post aPost : page) {
@@ -52,7 +52,7 @@ public class AplikacjaFB extends Application {
                         for (LikeItem lajk : aPost.getLikes().getData()) {
                             //System.out.println(lajk.getId());
                             System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
-                            baza.insertDane(domena,lajk.getId(),0);
+                            baza.insertDane(domena, lajk.getId(), 0);
                             licznik++;
                         }
                     }
@@ -60,7 +60,7 @@ public class AplikacjaFB extends Application {
                     if (aPost.getComments() != null) {
                         for (Comment kom : aPost.getComments().getData()) {
                             System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
-                            baza.insertDane(domena,kom.getFrom().getId(), 0);
+                            baza.insertDane(domena, kom.getFrom().getId(), 0);
                             licznik++;
                         }
 
@@ -76,13 +76,14 @@ public class AplikacjaFB extends Application {
      * @param args the command line arguments
      */
     public static String domena = "BilardClubCafeuKrolevica";
-    public static void main(String[] args) {
-    launch(args);
-    
-  
+    public static String accessToken;
 
-    
-    
-}
+    public static void main(String[] args) {
+        launch(args);
+        
+
+        Likes(accessToken);
+
+    }
 
 }
