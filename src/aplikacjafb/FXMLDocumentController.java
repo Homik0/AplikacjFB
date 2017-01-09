@@ -8,13 +8,22 @@ package aplikacjafb;
 import static aplikacjafb.AplikacjaFB.accessToken;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.types.Group;
 import com.restfb.types.User;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -23,12 +32,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * @author Homik
  */
 public class FXMLDocumentController implements Initializable {
-
+    private TextField textfield1;
     @FXML
-    private Label label;
-
-    @FXML
-    public void handleButtonAction(ActionEvent event) {
+    public void handleButtonAction(ActionEvent event) throws Exception {
 
         String domain = "http://google.com/";
         String appId = "382229655463649";
@@ -49,21 +55,31 @@ public class FXMLDocumentController implements Initializable {
                 String url = driver.getCurrentUrl();
                 AplikacjaFB.accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
                 driver.quit();
-                label.setText(accessToken);
+
             }
         }
-        
-    }
-    @FXML private javafx.scene.control.Button closeButton;
 
-@FXML
+    }
+
+    public void CloseButton(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
 //private void closeButtonAction(){
 //    // get a handle to the stage
 //    Stage stage = (Stage) closeButton.getScene().getWindow();
 //    // do what you have to do
 //    stage.close();
 //}
-
+    public void wyczyscPole(ActionEvent event){
+        textfield1.clear();
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

@@ -69,6 +69,7 @@ public class AplikacjaFB extends Application {
             }
         }
         System.out.println("suma danych " + licznik);
+        baza.przenies(wyszukiwanie);
         baza.rozlaczZbazaDanych();
     }
 
@@ -76,6 +77,7 @@ public class AplikacjaFB extends Application {
      * @param args the command line arguments
      */
     public static String domena = "BilardClubCafeuKrolevica";
+public static String wyszukiwanie = "ja";
     public static String accessToken;
 
     public static void main(String[] args) {

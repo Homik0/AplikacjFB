@@ -90,6 +90,22 @@ public class Baza {
         }
 
     }
+    public void przenies(String tablica) {
+        try {
+            statement.execute("create table " + tablica + "2" + " as SELECT null,id,name,count(id) FROM " + tablica + " group by id order by count(id) desc");
+            ResultSet result2 = statement.executeQuery("SELECT * FROM " + tablica +"2");
+            //for(int i=1;i<=sum;i++)
+            while (result2.next()) {
+                System.out.println(result2.getString(1) + " " + result2.getString(2) + " " + result2.getString(3) + " " + result2.getInt(4));
+
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
 
 }
 
