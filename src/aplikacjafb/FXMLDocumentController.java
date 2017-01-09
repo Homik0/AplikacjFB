@@ -5,6 +5,7 @@
  */
 package aplikacjafb;
 
+import static aplikacjafb.AplikacjaFB.Likes;
 import static aplikacjafb.AplikacjaFB.accessToken;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -33,7 +34,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * @author Homik
  */
 public class FXMLDocumentController implements Initializable {
-    private TextField textfield1;
+
+    public static TextField textfield1;
+    private Label label;
+    
+
     @FXML
     public void handleButtonAction(ActionEvent event) throws Exception {
 
@@ -64,28 +69,19 @@ public class FXMLDocumentController implements Initializable {
 
     public void CloseButton(ActionEvent event) {
         try {
-            Stage stage = new Stage();
-            stage.show();
-                    int ile_danych=5;
-
-         Graph frame = new Graph(ile_danych,AplikacjaFB.wyszukiwanie);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setSize(800, 620);
-	frame.setVisible(true);
+            Likes(accessToken);
+        int ile_danych = 5;
+            Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 620);
+            frame.setVisible(true);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @FXML
-//private void closeButtonAction(){
-//    // get a handle to the stage
-//    Stage stage = (Stage) closeButton.getScene().getWindow();
-//    // do what you have to do
-//    stage.close();
-//}
-    public void wyczyscPole(ActionEvent event){
-        textfield1.clear();
+    public void nadajNazwe(ActionEvent event){
+        label.setText(textfield1.getText());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -34,58 +34,68 @@ public class AplikacjaFB extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    public static void Likes(String accessToken) {
+        public static int limit_like = 100;
+        public static int limit_comments = 100;
+       public static void Likes(String accessToken) {
         Baza baza = new Baza();
         baza.polaczZbazaDanych();
-        baza.createTable(domena);
+        baza.createTable(wyszukiwanie);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
         Connection<Post> result = fbClient.fetchConnection(domena + "/feed", Post.class);
         int licznik = 0;
+        int licznik1 = 0;
         for (List<Post> page : result) {
             for (Post aPost : page) {
-                if (licznik <= 20) {
-                    System.out.println(aPost.getName() + " " + aPost.getId());
-                    //lajki
 
-                    if (aPost.getLikes() != null) {
+                //System.out.println(aPost.getName()+" "+aPost.getId());
+                //lajki
+                if (aPost.getLikes() != null) {
 
-                        for (LikeItem lajk : aPost.getLikes().getData()) {
+                    for (LikeItem lajk : aPost.getLikes().getData()) {
+                        if (licznik <= limit_like) {
                             //System.out.println(lajk.getId());
-                            System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
-                            baza.insertDane(domena, lajk.getId(), 0);
+                            //System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
+                            baza.insertDane(wyszukiwanie, lajk.getId(), lajk.getName(), 0);
                             licznik++;
                         }
                     }
                     //komentarze
                     if (aPost.getComments() != null) {
                         for (Comment kom : aPost.getComments().getData()) {
-                            System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
-                            baza.insertDane(domena, kom.getFrom().getId(), 0);
-                            licznik++;
+                            if (licznik1 <= limit_comments) {
+                                //System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
+                                baza.insertDane(wyszukiwanie, kom.getFrom().getId(), kom.getFrom().getName(), 0);
+                                licznik++;
+                            }
                         }
-
                     }
                 }
             }
         }
         System.out.println("suma danych " + licznik);
+
         baza.przenies(wyszukiwanie);
         baza.rozlaczZbazaDanych();
+
     }
 
     /**
      * @param args the command line arguments
      */
-    public static String domena = "BilardClubCafeuKrolevica";
-    public static String wyszukiwanie = "ja";
+    //public static String domena = FXMLDocumentController.textfield1.getText();
+    public static String domena = "Metallica";
+    public static String wyszukiwanie = domena;
     public static String accessToken;
 
     public static void main(String[] args) {
         launch(args);
-
-        Likes(accessToken);
-
+ Likes(accessToken);
+        int ile_danych = 5;
+            Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 620);
+            frame.setVisible(true);
+        
     }
 
 }
