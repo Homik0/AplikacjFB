@@ -30,7 +30,7 @@
         <InnerShadow />
       </effect>
     </Label>
-    <TextField fx:id="textfield1" layoutX="14.0" layoutY="209.0" onMouseClicked="wyczyscPole" prefHeight="30.0" prefWidth="182.5" text="Podaj id lokalu" />
+    <TextField fx:id="textfield1" layoutX="14.0" layoutY="209.0" prefHeight="30.0" prefWidth="182.5" text="Podaj id lokalu" />
     <Button fx:id="closeButton" layoutX="219.0" layoutY="199.0" onAction="#CloseButton" prefHeight="50.0" prefWidth="160.0" text="Wyświetl graf połączeń">
       <effect>
         <Lighting>
@@ -45,16 +45,6 @@
     </Button>
   </children>
   <effect>
-    <Lighting>
-      <bumpInput>
-        <Shadow />
-      </bumpInput>
-      <contentInput>
-        <InnerShadow />
-      </contentInput>
-      <light>
-        <javafx.scene.effect.Light.Distant color="#14ff00" />
-      </light>
-    </Lighting>
+    <InnerShadow />
   </effect>
 </AnchorPane>

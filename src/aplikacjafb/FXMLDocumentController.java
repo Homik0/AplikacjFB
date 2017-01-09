@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -37,7 +38,7 @@ public class FXMLDocumentController implements Initializable {
     public void handleButtonAction(ActionEvent event) throws Exception {
 
         String domain = "http://google.com/";
-        String appId = "382229655463649";
+        String appId = "1028610047267967";
         // user_activities, user_groups, user_interests, manage_notifications, read_friendlists, read_mailbox, read_stream. 
         String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id=" + appId + "&redirect_uri=" + domain + "&scope=user_about_me,"
                 + "user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_birthday,user_education_history,"
@@ -65,6 +66,12 @@ public class FXMLDocumentController implements Initializable {
         try {
             Stage stage = new Stage();
             stage.show();
+                    int ile_danych=5;
+
+         Graph frame = new Graph(ile_danych,AplikacjaFB.wyszukiwanie);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setSize(800, 620);
+	frame.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

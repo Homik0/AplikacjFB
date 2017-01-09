@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -90,16 +91,18 @@ public class Baza {
         }
 
     }
+
     public void przenies(String tablica) {
         try {
-            statement.execute("create table " + tablica + "2" + " as SELECT null,id,name,count(id) FROM " + tablica + " group by id order by count(id) desc");
-            ResultSet result2 = statement.executeQuery("SELECT * FROM " + tablica +"2");
-            //for(int i=1;i<=sum;i++)
+            statement.execute("create table if not exists " + tablica + "2" + " as SELECT null,id,name,count(id) FROM " + tablica + " group by id order by count(id) desc");
+            ResultSet result2 = statement.executeQuery("SELECT * FROM " + tablica + "2");
+            statement.executeUpdate("drop table " + tablica);
+
             while (result2.next()) {
                 System.out.println(result2.getString(1) + " " + result2.getString(2) + " " + result2.getString(3) + " " + result2.getInt(4));
 
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -107,7 +110,33 @@ public class Baza {
 
     }
 
+    public List<String> selectDane(String tablica, int ile) {
+        List<String> dane = new ArrayList<>();
+        try {
+            ResultSet result = statement.executeQuery("SELECT * FROM "+tablica+"2");
+            int suma;
+            String nazwisko;
+                int licznik=0; 
+                
+            while(result.next() && licznik<ile) {
+                //lp=result.getString(1);
+                //id = result.getString(2);
+                nazwisko = result.getString(3);
+                suma = result.getInt(4);
+                dane.add(nazwisko+" "+Integer.toString(suma));
+                
+
+        }
+            statement.executeUpdate("drop table "+tablica+"2");
+            //System.out.println("suma= "+ suma );
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return dane;
 }
+}
+
 
 //    public class Lajki {
 //    private int id;
