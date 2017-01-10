@@ -79,7 +79,7 @@ public class FXMLDocumentController implements Initializable {
 //            + "&client_secret=" + secretKey + "&code=" + code);
         AccessToken accessToken = new DefaultFacebookClient().obtainAppAccessToken(appId, secretKey);
         token = accessToken.getAccessToken();
-
+        System.out.println(token);
         token1.setText(token);
 
     }
