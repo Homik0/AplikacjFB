@@ -38,11 +38,11 @@ public class Graph extends JFrame
 		graph.getModel().beginUpdate();
 		try
 		{
-                    Object v1 = graph.insertVertex(parent, null, nazwa, 400, 310, 100,
+                    Object v1 = graph.insertVertex(parent, null, nazwa, 600, 350, 100,
 					30);
                     for(int i=0;i<liczba;i++){
 			if(i<dane.size()){
-			Object v = graph.insertVertex(parent, Integer.toString(i), dane.get(i), 400+220*cos(i*2*PI/liczba), 310+220*sin(i*2*PI/liczba),
+			Object v = graph.insertVertex(parent, Integer.toString(i), dane.get(i), 600+220*cos(i*2*PI/liczba), 350+220*sin(i*2*PI/liczba),
 					100, 30);
                         
 			graph.insertEdge(parent, null, null, v1, v);

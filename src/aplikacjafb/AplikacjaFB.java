@@ -34,27 +34,28 @@ public class AplikacjaFB extends Application {
         stage.setScene(scene);
         stage.show();
     }
-        public static int limit_like = 100;
-        public static int limit_comments = 100;
-       public static void Likes(String accessToken) {
+    public static int limit_like = 100;
+    public static int limit_comments = 100;
+
+    public static void Likes(String accessToken) {
         Baza baza = new Baza();
         baza.polaczZbazaDanych();
         baza.createTable(wyszukiwanie);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
-        Connection<Post> result = fbClient.fetchConnection(domena + "/feed", Post.class);
+        Connection<Post> result = fbClient.fetchConnection(wyszukiwanie + "/feed", Post.class);
         int licznik = 0;
         int licznik1 = 0;
         for (List<Post> page : result) {
             for (Post aPost : page) {
 
-                //System.out.println(aPost.getName()+" "+aPost.getId());
+                System.out.println(aPost.getName()+" "+aPost.getId());
                 //lajki
                 if (aPost.getLikes() != null) {
 
                     for (LikeItem lajk : aPost.getLikes().getData()) {
                         if (licznik <= limit_like) {
                             //System.out.println(lajk.getId());
-                            //System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
+                            System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
                             baza.insertDane(wyszukiwanie, lajk.getId(), lajk.getName(), 0);
                             licznik++;
                         }
@@ -65,7 +66,7 @@ public class AplikacjaFB extends Application {
                             if (licznik1 <= limit_comments) {
                                 //System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
                                 baza.insertDane(wyszukiwanie, kom.getFrom().getId(), kom.getFrom().getName(), 0);
-                                licznik++;
+                                licznik1++;
                             }
                         }
                     }
@@ -83,19 +84,11 @@ public class AplikacjaFB extends Application {
      * @param args the command line arguments
      */
     //public static String domena = FXMLDocumentController.textfield1.getText();
-    public static String domena = "Metallica";
-    public static String wyszukiwanie = domena;
+    public static String wyszukiwanie = "BilardClubCafeuKrolevica";
     public static String accessToken;
 
     public static void main(String[] args) {
         launch(args);
- Likes(accessToken);
-        int ile_danych = 5;
-            Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(800, 620);
-            frame.setVisible(true);
-        
     }
 
 }
