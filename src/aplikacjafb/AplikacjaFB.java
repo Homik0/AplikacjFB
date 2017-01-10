@@ -83,9 +83,8 @@ public class AplikacjaFB extends Application {
     /**
      * @param args the command line arguments
      */
-    //public static String domena = FXMLDocumentController.textfield1.getText();
-    public static String wyszukiwanie = "BilardClubCafeuKrolevica";
-    public static String accessToken;
+    public static String wyszukiwanie="BilardClubCafeuKrolevica";
+    public static String accessToken="1028610047267967|OVcuQIInP8u-e925yY1Rf7wCNLk";
 
     public static void main(String[] args) {
         launch(args);

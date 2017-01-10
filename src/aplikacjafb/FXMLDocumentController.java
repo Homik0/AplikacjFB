@@ -10,6 +10,7 @@ import static aplikacjafb.AplikacjaFB.accessToken;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultWebRequestor;
 import com.restfb.FacebookClient;
+import com.restfb.FacebookClient.AccessToken;
 import com.restfb.WebRequestor;
 import com.restfb.types.Group;
 import com.restfb.types.User;
@@ -37,32 +38,26 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public class FXMLDocumentController implements Initializable {
 
-    public final Label label = new Label();
-    public final TextField lokal = new TextField();
+    @FXML
+    private TextField token1;
+    private TextField token2;
+    private TextField lokal;
+    public static String token;
 
     @FXML
     public void handleButtonAction(ActionEvent event) throws Exception {
 
-        String domain = "http://google.com/";
         String appId = "1028610047267967";
-        String secretKey ="692f663aa398e40dffac358f41636462";
-        String redirectUrl = "https://www.facebook.com/connect/login_success.html";
-        String code = "user_about_me,"
-                + "user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_birthday,user_education_history,"
-                + "user_events,user_photos,user_friends,user_games_activity,user_hometown,user_likes,user_location,user_relationship_details,"
-                + "user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,"
-                + "manage_pages,publish_actions,read_insights,read_page_mailboxes,rsvp_event,user_posts,pages_show_list,pages_messaging,business_management,pages_messaging_payments,"
-                + "pages_messaging_phone_number,user_events,pages_messaging_subscriptions,user_managed_groups,pages_manage_instant_articles,read_audience_network_insights,"
-                + "publish_pages,pages_manage_cta";
-        // user_activities, user_groups, user_interests, manage_notifications, read_friendlists, read_mailbox, read_stream. 
-//        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id=" + appId + "&redirect_uri=" + domain + "&scope=user_about_me,"
+        String secretKey = "692f663aa398e40dffac358f41636462";
+//        String redirectUrl = "https://www.google.pl/";
+//        String code = "user_about_me,"
 //                + "user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_birthday,user_education_history,"
 //                + "user_events,user_photos,user_friends,user_games_activity,user_hometown,user_likes,user_location,user_relationship_details,"
 //                + "user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,"
 //                + "manage_pages,publish_actions,read_insights,read_page_mailboxes,rsvp_event,user_posts,pages_show_list,pages_messaging,business_management,pages_messaging_payments,"
 //                + "pages_messaging_phone_number,user_events,pages_messaging_subscriptions,user_managed_groups,pages_manage_instant_articles,read_audience_network_insights,"
 //                + "publish_pages,pages_manage_cta";
-//
+//----------------------------------------------
 //        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
 //
 //        WebDriver driver = new ChromeDriver();
@@ -77,39 +72,29 @@ public class FXMLDocumentController implements Initializable {
 //
 //            }
 //        }
-        WebRequestor wr = new DefaultWebRequestor();
-    WebRequestor.Response accessTokenResponse = wr.executeGet(
-            "https://graph.facebook.com/oauth/access_token?client_id=" + appId + "&redirect_uri=" + redirectUrl
-            + "&client_secret=" + secretKey + "&code=" + code);
-    System.out.println(accessToken);
+//-------------------------------------------------
+//        WebRequestor wr = new DefaultWebRequestor();
+//    WebRequestor.Response accessToken = wr.executeGet(
+//            "https://graph.facebook.com/oauth/access_token?client_id=" + appId + "&redirect_uri=" + redirectUrl
+//            + "&client_secret=" + secretKey + "&code=" + code);
+        AccessToken accessToken = new DefaultFacebookClient().obtainAppAccessToken(appId, secretKey);
+        token = accessToken.getAccessToken();
+
+        token1.setText(token);
+
     }
+    @FXML
+    public void closeButton(ActionEvent event)  throws Exception{
+        
+            //token2.setText(AplikacjaFB.wyszukiwanie);
+            Likes(accessToken);
+            int ile_danych = 20;
+            Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1366, 768);
+            frame.setVisible(true);
 
-    public void CloseButton(ActionEvent event) {
-        try {
-            if ((lokal.getText() != null && !lokal.getText().isEmpty())) {
-                label.setText("Nazwa lokalu to: " + lokal.getText());
-                
-                AplikacjaFB.wyszukiwanie = lokal.getText();
-                Likes(accessToken);
-                int ile_danych = 20;
-                Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1366, 768);
-                frame.setVisible(true);
-            } else {
-                label.setText("Nazwa lokalu to: dupa");
-                lokal.clear();
-                Likes(accessToken);
-                int ile_danych = 20;
-                Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1366, 768);
-                frame.setVisible(true);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
     }
 
     @Override
