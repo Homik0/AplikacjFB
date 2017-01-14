@@ -112,19 +112,21 @@ public class Baza {
     }
  public List<String> selectDane(String tablica, int ile) {
         List<String> dane = new ArrayList<>();
+        //List<String> dane2 = new ArrayList<>();
         try {
             ResultSet result = statement.executeQuery("SELECT * FROM "+tablica+"2");
             int suma;
-            String nazwisko;
+            String nazwisko,adres;
                 int licznik=0; 
                 
             while(result.next() && licznik<ile) {
                 //lp=result.getString(1);
-                //id = result.getString(2);
+                adres = result.getString(2);
                 nazwisko = result.getString(3);
                 suma = result.getInt(4);
-                dane.add(nazwisko+" "+Integer.toString(suma));
-                
+                dane.add(nazwisko+" "+Integer.toString(suma)+"\nhttps://fb.com/"+adres);
+                //dane2.add("fb.com/"+adres);
+               // nazwisko+" "+Integer.toString(suma)+" "+
 
         }
             statement.executeUpdate("drop table "+tablica+"2");
