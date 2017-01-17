@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -40,8 +41,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private TextField token1;
-    private TextField token2;
-    private TextField lokal;
+    
     public static String token;
 
     @FXML
@@ -84,16 +84,35 @@ public class FXMLDocumentController implements Initializable {
 
     }
     @FXML
+    private TextField ile_danych;
+    @FXML
     public void closeButton(ActionEvent event)  throws Exception{
         
             //token2.setText(AplikacjaFB.wyszukiwanie);
             Likes(accessToken);
-            int ile_danych = 20;
-            Graph frame = new Graph(ile_danych, AplikacjaFB.wyszukiwanie);
+           
+            Graph frame = new Graph(Integer.parseInt(ile_danych.getText()), AplikacjaFB.wyszukiwanie);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1366, 768);
             frame.setVisible(true);
 
+        
+    }
+    @FXML
+    private TextField posty;
+    @FXML
+    private TextField komentarze;
+    @FXML
+    private TextField likes;
+    @FXML
+    private TextField lokal;
+    @FXML
+    public void wprowadzButton(ActionEvent event) throws Exception{
+        
+        AplikacjaFB.limit_posts=Integer.parseInt(posty.getText());
+        AplikacjaFB.limit_comments=Integer.parseInt(komentarze.getText());
+        AplikacjaFB.limit_like=Integer.parseInt(likes.getText());
+        AplikacjaFB.wyszukiwanie=lokal.getText();
         
     }
 

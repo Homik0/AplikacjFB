@@ -17,7 +17,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.JFrame;
 
 /**
  *
@@ -34,8 +33,9 @@ public class AplikacjaFB extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    public static int limit_like = 100;
-    public static int limit_comments = 100;
+    public static int limit_like;
+    public static int limit_comments;
+    public static int limit_posts;
 
     public static void Likes(String accessToken) {
         Baza baza = new Baza();
@@ -45,31 +45,34 @@ public class AplikacjaFB extends Application {
         Connection<Post> result = fbClient.fetchConnection(wyszukiwanie + "/feed", Post.class);
         int licznik = 0;
         int licznik1 = 0;
+        int licznik2 = 0;
         for (List<Post> page : result) {
             for (Post aPost : page) {
+                if (licznik2 <= limit_posts) {
+                    //System.out.println(aPost.getName()+" "+aPost.getId());
+                    //lajki
+                    if (aPost.getLikes() != null) {
 
-                System.out.println(aPost.getName()+" "+aPost.getId());
-                //lajki
-                if (aPost.getLikes() != null) {
-
-                    for (LikeItem lajk : aPost.getLikes().getData()) {
-                        if (licznik <= limit_like) {
-                            //System.out.println(lajk.getId());
-                            System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
-                            baza.insertDane(wyszukiwanie, lajk.getId(), lajk.getName(), 0);
-                            licznik++;
+                        for (LikeItem lajk : aPost.getLikes().getData()) {
+                            if (licznik <= limit_like) {
+                                //System.out.println(lajk.getId());
+                                //System.out.println(lajk.getName() + " " + lajk.getId());//wyciąga kto zlajkował post
+                                baza.insertDane(wyszukiwanie, lajk.getId(), lajk.getName(), 0);
+                                licznik++;
+                            }
                         }
-                    }
-                    //komentarze
-                    if (aPost.getComments() != null) {
-                        for (Comment kom : aPost.getComments().getData()) {
-                            if (licznik1 <= limit_comments) {
-                                //System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
-                                baza.insertDane(wyszukiwanie, kom.getFrom().getId(), kom.getFrom().getName(), 0);
-                                licznik1++;
+                        //komentarze
+                        if (aPost.getComments() != null) {
+                            for (Comment kom : aPost.getComments().getData()) {
+                                if (licznik1 <= limit_comments) {
+                                    //System.out.println(kom.getFrom().getName() + " " + kom.getFrom().getId()); //wyciaga kto skomentował post
+                                    baza.insertDane(wyszukiwanie, kom.getFrom().getId(), kom.getFrom().getName(), 0);
+                                    licznik1++;
+                                }
                             }
                         }
                     }
+                    licznik2++;
                 }
             }
         }
@@ -83,8 +86,8 @@ public class AplikacjaFB extends Application {
     /**
      * @param args the command line arguments
      */
-    public static String wyszukiwanie="BilardClubCafeuKrolevica";
-    public static String accessToken="EAACEdEose0cBAHpdfJ8ZBUhD5UxF5Opf2MvH4cYY3xO9qaLRVzboiwkJzBNRs8i5wQhbcgggBZCz6wZAUb98UzZAffjN0iJye1nZAI2rIxblfJKBm04xf9VssItIprn3ds6NPRfIagZCai2OrrVNIZBCLkSZAEedIrKgL4UEdbYIZAgZDZD";
+    public static String wyszukiwanie;
+    public static String accessToken = "EAACEdEose0cBAM3yK7vKZCmgCbfdh0Tv5bGtEBP5opXyTlLVhwAAOKBKNzWUAy4qkLDHvm400CGgGFl4h1ypRhqyFnaKpOo7LUZCzZCZCOmdHFZA65iNqNZA1jYTeHmxaTaQAFzJZAd6yJlXNZCf7jSr4rJfZCXRC4qWcjF9G7R3sjL5hX2i73F7kPopirofuZBhUtRA1xa65D5QZDZD";
 
     public static void main(String[] args) {
         launch(args);
