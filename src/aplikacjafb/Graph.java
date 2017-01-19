@@ -12,7 +12,11 @@ import static java.lang.Math.sin;
 import javax.swing.JFrame;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
@@ -36,8 +40,7 @@ public class Graph extends JFrame {
 
         graph.getModel().beginUpdate();
         try {
-            Object v1 = graph.insertVertex(parent, null, "https://fb.com/" + wyszukiwanie, 600, 350, 100,
-                    30);
+            Object v1 = graph.insertVertex(parent, null, "https://fb.com/" + wyszukiwanie, 600, 350, 100, 30);
             for (int i = 0; i < liczba; i++) {
                 if (i < dane.size()) {
                     Object v = graph.insertVertex(parent, Integer.toString(i), dane.get(i), 600 + 250 * cos(i * 2 * PI / liczba), 350 + 250 * sin(i * 2 * PI / liczba),
@@ -53,5 +56,18 @@ public class Graph extends JFrame {
 
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
         getContentPane().add(graphComponent);
+        graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+                System.out.println("Mouse click in graph component");
+                if (cell != null) {
+                    System.out.println("cell=" + graph.getLabel(cell));
+                    System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
+                    WebDriver driver = new ChromeDriver();
+                    driver.get("https://forum.jgraph.com/vote/254/down/index.html");
+                }
+            }
+
+        });
     }
 }

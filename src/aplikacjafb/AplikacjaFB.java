@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
@@ -87,10 +89,11 @@ public class AplikacjaFB extends Application {
      * @param args the command line arguments
      */
     public static String wyszukiwanie;
-    public static String accessToken = "EAACEdEose0cBAM3yK7vKZCmgCbfdh0Tv5bGtEBP5opXyTlLVhwAAOKBKNzWUAy4qkLDHvm400CGgGFl4h1ypRhqyFnaKpOo7LUZCzZCZCOmdHFZA65iNqNZA1jYTeHmxaTaQAFzJZAd6yJlXNZCf7jSr4rJfZCXRC4qWcjF9G7R3sjL5hX2i73F7kPopirofuZBhUtRA1xa65D5QZDZD";
+    public static String accessToken = "EAACEdEose0cBAMGTTDxyyqpAwEUGIuPs3MjHpJ2BSCd5gH6RWi8PLPdDiMXNmwIw8FONZCpz87ro4jXuirZC1ZCePqCgNcelUuvQZBlvJIIZAXoIJAxuWwOKvHbsmNdffuGCJI1ODZCGkUZCxsNZAOgYoRXc51fgrfVbWLDV7CIBZAwZDZD";
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
 }
