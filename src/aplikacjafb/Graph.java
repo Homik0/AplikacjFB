@@ -63,13 +63,12 @@ public class Graph extends JFrame {
                 String url;
                 if (cell != null) {
                     System.out.println("cell=" + graph.getLabel(cell));
-                    url=graph.getLabel(cell);
+                    url = graph.getLabel(cell);
                     url = url.substring(url.lastIndexOf("https"));
                     System.out.println(url);
                     System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
                     WebDriver driver = new ChromeDriver();
                     driver.get(url);
-                    driver.quit();
                 }
             }
 

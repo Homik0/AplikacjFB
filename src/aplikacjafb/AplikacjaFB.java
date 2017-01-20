@@ -89,11 +89,10 @@ public class AplikacjaFB extends Application {
      * @param args the command line arguments
      */
     public static String wyszukiwanie;
-    public static String accessToken = "EAACEdEose0cBAOAT4I9090rnfZCHhQMQDZCIIduD9EmuZBL201ZBj7kaGteRZAHaZAg5Vr3s3yeEObSlokHnoZAV6bqWXeKjRpW57nphCGvZBPXctr2lKwErvqjbd8WeOle3UA0lWP9rtYR35Nn4TSAsY5GdJUxJMA9qQ42Lx9NQbgZDZD";
+    public static String accessToken = "EAACEdEose0cBAI5U97xuRYZC4EteUvx474djlgdZCS9imCgLMAXD22bi0goupaRsI1jh9B11uaiqddw6IZAZAkrKbixfsnKSh7X6YqP2zrKZAicZC5mwDZB6gjiTOTUM6hngOEPCThO1QM5AqZBZB1w3WMaSR299N3WGDdAyBuimQJwZDZD";
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
 }
