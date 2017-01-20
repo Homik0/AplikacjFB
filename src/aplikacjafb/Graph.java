@@ -69,6 +69,7 @@ public class Graph extends JFrame {
                     System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
                     WebDriver driver = new ChromeDriver();
                     driver.get(url);
+                    driver.quit();
                 }
             }
 
