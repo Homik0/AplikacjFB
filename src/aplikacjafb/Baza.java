@@ -27,7 +27,7 @@ import java.util.List;
 public class Baza {
 
     private static final String DRIVER = "org.sqlite.JDBC";
-    private static final String DB_URL = "jdbc:sqlite:C:\\Users\\2marc\\Desktop\\Bivlioteki\\Lokale";
+    private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Homik\\Downloads\\Lokale";
     private static Connection connection = null;
     private static Statement statement = null;
 
